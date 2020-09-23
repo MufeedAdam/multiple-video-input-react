@@ -5,9 +5,14 @@
 
 
 #videoElement{
-  position: top;
-  height: 1050px;
-  width: 1050px;
+  
+  height: 250px;
+  width: 250px;
 }
 
+#videoElement1{
+  margin-left: 2rem;
+  height: 250px;
+  width: 250px;
+}
 
