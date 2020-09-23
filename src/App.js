@@ -1,24 +1,30 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
 
 function App() {
+
+   const streamCamVideo =() => {
+    var video = document.querySelector("video");
+    navigator.mediaDevices.enumerateDevices()
+    .then(devices => {
+      console.table(devices)
+      var camera = devices.filter(device => device.kind === "videoinput");
+      if (camera) {
+        var constraints = { deviceId: { exact: camera.deviceId } };
+        return navigator.mediaDevices.getUserMedia({ video: constraints });
+      }
+    })
+    .then(stream =>video.srcObject = stream)
+    .catch(e => console.error(e));
+  }
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <div id="container">
+          <video autoPlay={true} id="videoElement"></video>
+        </div>
+        <br/>
+        <button onClick={streamCamVideo}>Start streaming</button>
     </div>
   );
 }
